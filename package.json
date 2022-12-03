@@ -1,0 +1,13 @@
+{
+  "name": "AdventOfCode2022",
+  "version": "1.0.0",
+  "description": "Advent of code 2022 solutions",
+  "main": "dist/index.js",
+  "repository": "git@github.com:ClarkGH/AdventOfCode2022.git",
+  "author": "clarkgh <clarkhinchcliff@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  }
+}
