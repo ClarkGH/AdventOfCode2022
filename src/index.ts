@@ -1,3 +1,3 @@
-import day1 from "./days/day1.js";
+import { organizedElvenCalories } from './days/day1/index.js';
 
-console.log(day1);
+console.log(organizedElvenCalories());
