@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const ELVEN_CALORIES = './input.txt'
 
-export const organizedElvenCalories = () => {
+export const organizedElvenCalories = (): void => {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const calorieTotalList: number[] = [];
@@ -29,6 +29,6 @@ export const organizedElvenCalories = () => {
     const mostCalories = calorieTotalList[0];
     const top3TotalCalories = calorieTotalList[0] + calorieTotalList[1] + calorieTotalList[2];
     
-    console.log(`The Elf with the most food has ${mostCalories} calories`);
-    console.log(`The elves with the most food have ${top3TotalCalories} calories`);
+    console.log(`The elf with the most food has ${mostCalories} calories`);
+    console.log(`The elves with the most food have a total of ${top3TotalCalories} calories`);
 }
