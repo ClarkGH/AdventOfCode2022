@@ -1,3 +1,5 @@
+// Solution for problem 1: https://adventofcode.com/2022/day/1
+
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
