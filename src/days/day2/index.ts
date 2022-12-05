@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 const STRATEGY_GUIDE = './input.txt'
 
-export const rockPaperScissorsScorer = (): number => {
+export const rockPaperScissorsScore = (): number => {
     // Need to set up file/dir to read the files like node in es modules.
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);

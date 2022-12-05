@@ -14,4 +14,4 @@ Happy holidays!
 
 ## Where does the  the code live?
 
-Check out any of the folders in the `days/` directory. 
+Check out any of the folders in the `src/days/` directory. 
