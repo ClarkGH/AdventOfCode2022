@@ -1,77 +1,44 @@
-// Solution for problem 2, part 2: https://adventofcode.com/2022/day/2
-// I didn't feel like posting both parts.
+// Solution for Day 4, part 1: https://adventofcode.com/2022/day/4
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
-const STRATEGY_GUIDE = './input.txt'
-
-export const rockPaperScissorsScore = (): number => {
-    // Need to set up file/dir to read the files like node in es modules.
+export const getOverlappingCampAssignments = (): number => {
+    const CAMP_ASSIGNMENTS = './input.txt'
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    enum PointsMap {
-        X = 1,
-        Y = 2,
-        Z = 3,
-        WIN = 6,
-        DRAW = 3,
-        LOSE = 0,
-    }
+    const assignmentPairsList = readFileSync(join(__dirname, CAMP_ASSIGNMENTS), 'utf-8')
+    .split(/\r?\n/); // List of assignments. Length N.
 
-    // Example output: ['C Z', ...].
-    const guideList = readFileSync(join(__dirname, STRATEGY_GUIDE), 'utf-8')
-        .split(/\r?\n/);
+    if (!assignmentPairsList) return 0;
 
-    let estimatedScore = 0;
+    /**
+     * Example assignment: '17-20,18-19'.
+     * 
+     * In example case:
+     * 17 is the start of the first assignment.
+     * 20 is the end of the first assignment.
+     * 18 is the start of the second assignment.
+     * 19 is the end of the second assignment.
+     * 
+     * In every case:
+     * IF an assignments start is GREATER than or EQUAL to the other assignment's start.
+     * AND if the SAME assignments end is LESS than or EQUAL to the other assignment's end.
+     * It is fully contained.
+     */
 
-    guideList.forEach((roundPlays) => {
-        const opponentPlay = roundPlays[0];
-        const clientPlay = roundPlays[2];
+    return assignmentPairsList.reduce((acc, assignmentPairs): number => {
+        const [assignment1, assignment2]: [string, string] = assignmentPairs.split(',') as [string, string];
+        const [assignment1Left, assignment1Right]: [string, string] = assignment1.split('-') as [string, string];
+        const [assignment2Left, assignment2Right]: [string, string] = assignment2.split('-') as [string, string];
+        const assignment1Contains2 = parseInt(assignment1Left) <= parseInt(assignment2Left) && parseInt(assignment1Right) >= parseInt(assignment2Right);
+        const assignment2Contains1 = parseInt(assignment1Left) >= parseInt(assignment2Left) && parseInt(assignment1Right) <= parseInt(assignment2Right);
 
-        switch (opponentPlay) {
-            case 'A':
-                switch (clientPlay) {
-                    case 'X':
-                        estimatedScore += (PointsMap.LOSE + PointsMap.Z);
-                        break;
-                    case 'Y':
-                        estimatedScore += (PointsMap.DRAW + PointsMap.X);
-                        break;
-                    case 'Z':
-                        estimatedScore += (PointsMap.WIN + PointsMap.Y);
-                        break;
-                }
-                break;
-            case 'B':
-                switch (clientPlay) {
-                    case 'X':
-                        estimatedScore += (PointsMap.LOSE + PointsMap.X);
-                        break;
-                    case 'Y':
-                        estimatedScore += (PointsMap.DRAW + PointsMap.Y);
-                        break;
-                    case 'Z':
-                        estimatedScore += (PointsMap.WIN + PointsMap.Z);
-                        break;
-                }
-                break;
-            case 'C':
-                switch (clientPlay) {
-                    case 'X':
-                        estimatedScore += (PointsMap.LOSE + PointsMap.Y);
-                        break;
-                    case 'Y':
-                        estimatedScore += (PointsMap.DRAW + PointsMap.Z);
-                        break;
-                    case 'Z':
-                        estimatedScore += (PointsMap.WIN + PointsMap.X);
-                        break;
-                }
-                break;
+        if (assignment1Contains2 || assignment2Contains1) {
+            return acc + 1;
         }
-    });
 
-    return estimatedScore;
+        return acc + 0;
+    }, 0);
 }

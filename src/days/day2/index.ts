@@ -1,5 +1,4 @@
-// Solution for problem 2, part 2: https://adventofcode.com/2022/day/2
-// I didn't feel like posting both parts.
+// Solution for Day 2, part 2: https://adventofcode.com/2022/day/2
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
