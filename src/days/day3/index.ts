@@ -1,4 +1,5 @@
 // Solution for problem 3: https://adventofcode.com/2022/day/3
+// Clean-up: consider using a class/enclosed scope and make re-usable methods
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
