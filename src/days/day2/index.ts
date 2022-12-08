@@ -1,4 +1,5 @@
 // Solution for problem 2, part 2: https://adventofcode.com/2022/day/2
+// I didn't feel like posting both parts.
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
@@ -25,60 +26,49 @@ export const rockPaperScissorsScore = (): number => {
 
     let estimatedScore = 0;
 
-    guideList.forEach((roundPlay) => {
-        const opponentPlay = roundPlay[0];
-        const yourPlay = roundPlay[2];
+    guideList.forEach((roundPlays) => {
+        const opponentPlay = roundPlays[0];
+        const clientPlay = roundPlays[2];
 
         switch (opponentPlay) {
             case 'A':
-                switch (yourPlay) {
+                switch (clientPlay) {
                     case 'X':
                         estimatedScore += (PointsMap.LOSE + PointsMap.Z);
                         break;
-
                     case 'Y':
                         estimatedScore += (PointsMap.DRAW + PointsMap.X);
                         break;
-
                     case 'Z':
                         estimatedScore += (PointsMap.WIN + PointsMap.Y);
                         break;
                 }
-
                 break;
-
             case 'B':
-                switch (yourPlay) {
+                switch (clientPlay) {
                     case 'X':
                         estimatedScore += (PointsMap.LOSE + PointsMap.X);
                         break;
-
                     case 'Y':
                         estimatedScore += (PointsMap.DRAW + PointsMap.Y);
                         break;
-
                     case 'Z':
                         estimatedScore += (PointsMap.WIN + PointsMap.Z);
                         break;
                 }
-
                 break;
-
             case 'C':
-                switch (yourPlay) {
+                switch (clientPlay) {
                     case 'X':
                         estimatedScore += (PointsMap.LOSE + PointsMap.Y);
                         break;
-
                     case 'Y':
                         estimatedScore += (PointsMap.DRAW + PointsMap.Z);
                         break;
-
                     case 'Z':
                         estimatedScore += (PointsMap.WIN + PointsMap.X);
                         break;
                 }
-
                 break;
         }
     });
