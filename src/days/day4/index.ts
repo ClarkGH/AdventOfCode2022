@@ -4,6 +4,8 @@ import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
+type Range = [string, string];
+
 const CAMP_ASSIGNMENTS = './input.txt'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,9 +31,9 @@ export const countEnclosingCampAssignments = (): number => {
      */
 
     return assignmentPairsList.reduce((acc, assignmentPairs): number => {
-        const [assignment1, assignment2]: [string, string] = assignmentPairs.split(',') as [string, string];
-        const [assignment1Left, assignment1Right]: [string, string] = assignment1.split('-') as [string, string];
-        const [assignment2Left, assignment2Right]: [string, string] = assignment2.split('-') as [string, string];
+        const [assignment1, assignment2]: Range = assignmentPairs.split(',') as Range;
+        const [assignment1Left, assignment1Right]: Range = assignment1.split('-') as Range;
+        const [assignment2Left, assignment2Right]: Range = assignment2.split('-') as Range;
         const assignment1Contains2 = parseInt(assignment1Left) <= parseInt(assignment2Left) && parseInt(assignment1Right) >= parseInt(assignment2Right);
         const assignment2Contains1 = parseInt(assignment1Left) >= parseInt(assignment2Left) && parseInt(assignment1Right) <= parseInt(assignment2Right);
 
@@ -63,10 +65,10 @@ export const countOverlappingCampAssignments = (): number => {
      */
 
     return assignmentPairsList.reduce((acc, assignmentPairs): number => {
-        const [assignment1, assignment2]: [string, string] = assignmentPairs.split(',') as [string, string];
-        const [assignment1Left, assignment1Right]: [string, string] = assignment1.split('-') as [string, string];
-        const [assignment2Left, assignment2Right]: [string, string] = assignment2.split('-') as [string, string];
-        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right) && parseInt(assignment1Right) >= parseInt(assignment2Left);
+        const [assignment1, assignment2]: Range = assignmentPairs.split(',') as Range;
+        const [assignment1Left, assignment1Right]: Range = assignment1.split('-') as Range;
+        const [assignment2Left, assignment2Right]: Range = assignment2.split('-') as Range;
+        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right) && parseInt(assignment1Right) >= parseInt(assignment2Left) || parseInt(assignment2Left) <= parseInt(assignment1Right) && parseInt(assignment2Right) >= parseInt(assignment1Left);
 
         if (assignmentsOverlap) {
             return acc + 1;

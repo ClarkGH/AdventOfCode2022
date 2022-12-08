@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const guideList = readFileSync(join(__dirname, STRATEGY_GUIDE), 'utf-8')
     .split(/\r?\n/);
 
-// Part 1:
+// Part 1.
 export const badElvenJankenPredictor = (): number => {
     let estimatedScore = 0;
 
@@ -74,6 +74,7 @@ export const badElvenJankenPredictor = (): number => {
     return estimatedScore;
 }
 
+// Part 2.
 export const goodElvenJankenPredictor = (): number => {
     let estimatedScore = 0;
 
