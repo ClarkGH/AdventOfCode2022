@@ -10,7 +10,7 @@ const CAMP_ASSIGNMENTS = './input.txt'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const assignmentPairsList = readFileSync(join(__dirname, CAMP_ASSIGNMENTS), 'utf-8')
-.split(/\r?\n/); // List of assignments. Length N.
+    .split(/\r?\n/); // List of assignments. Length N.
 
 export const countEnclosingCampAssignments = (): number => {
     if (!assignmentPairsList) return 0;
