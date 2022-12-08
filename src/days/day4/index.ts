@@ -1,4 +1,4 @@
-// Solution for Day 4, part 1: https://adventofcode.com/2022/day/4
+// Solution for Day 4, part 2: https://adventofcode.com/2022/day/4
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
@@ -66,7 +66,7 @@ export const countOverlappingCampAssignments = (): number => {
         const [assignment1, assignment2]: [string, string] = assignmentPairs.split(',') as [string, string];
         const [assignment1Left, assignment1Right]: [string, string] = assignment1.split('-') as [string, string];
         const [assignment2Left, assignment2Right]: [string, string] = assignment2.split('-') as [string, string];
-        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right) && parseInt(assignment1Right) >= parseInt(assignment2Left);
+        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right) && parseInt(assignment1Right) >= parseInt(assignment2Left) || parseInt(assignment2Left) <= parseInt(assignment1Right) && parseInt(assignment2Right) >= parseInt(assignment1Left);
 
         if (assignmentsOverlap) {
             return acc + 1;
