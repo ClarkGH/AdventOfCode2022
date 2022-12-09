@@ -40,7 +40,7 @@ const getCrateStacksFromFile = (): CrateStack[] => {
 
 /**
  * Create a list of instruction tuples. O(n).
- * Tuple: [Number to move, move from column, move to column].
+ * Tuple format: [Number to move, move from column, move to column].
  * Ex. [1, 2, 3] will move 1 crate from position 2 to position 3.
  */
 const getInstructionsFromFile = (): InstructionsList => {
@@ -63,6 +63,7 @@ const getInstructionsFromFile = (): InstructionsList => {
     return instructions;
 };
 
+// Part 1.
 export const getTopCrates = (): Capitalize<string> => {
     const instructions = getInstructionsFromFile();
     const stacks = getCrateStacksFromFile();
@@ -79,7 +80,35 @@ export const getTopCrates = (): Capitalize<string> => {
         }
     });
 
-    // Get the top crate from each index and return the string
+    // Get the top crate from each stack and return the string
+    return stacks.map((stack) => {
+        return stack[stack.length - 1];
+    }).join('') as Capitalize<string>;
+};
+
+// Part 2.
+export const haveCrateMover9001GetTopCrates = (): Capitalize<string> => {
+    const instructions = getInstructionsFromFile();
+    const stacks = getCrateStacksFromFile();
+
+    // Same as Part 1, but this time I'm using a temp array.
+    instructions.forEach((instruction) => {
+        let movesLeft = instruction[0];
+        const moveFromIdx = instruction[1] - 1;
+        const moveToIdx = instruction[2] - 1;
+        const crane9001Crates = [];
+
+        while(movesLeft) {
+            crane9001Crates.unshift(stacks[moveFromIdx].pop());
+            movesLeft--;
+        }
+
+        crane9001Crates.forEach((crate) => {
+            stacks[moveToIdx].push(crate);
+        });
+    });
+
+    // Get the top crate from each stack and return the string
     return stacks.map((stack) => {
         return stack[stack.length - 1];
     }).join('') as Capitalize<string>;
