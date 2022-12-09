@@ -18,23 +18,24 @@ const isNumeric = (value: string): boolean => {
 }
     
 // Create the stacks data structure to iterate through. O(n * m^2).
-const getCrateCrateStacksFromFile = (): CrateStack[] => {
+const getCrateStacksFromFile = (): CrateStack[] => {
     const stacks: CrateStack[] = [];
 
-    for (let i = 0; 1; i++) {
-        let j = 1;
-
+    for (let j = 1; j < file[0].length; j += 4) {
+        let charList = [];
+        let i = 0;
+        
         if(isNumeric(file[i][j])) break;
-
-        stacks[i] = [];
-
-        while(j < file[i].length) {
-            stacks[i] = [...stacks[i], file[i][j]];
-            j += 4;
+        while(i < file.length) {
+            if(isNumeric(file[i][j])) break;
+            if(file[i][j] !== ' ') charList = [file[i][j], ...charList];
+            i++;
         }
+
+        stacks.push(charList);
     }
 
-    return stacks.reverse();
+    return stacks;
 };
 
 /**
@@ -42,11 +43,12 @@ const getCrateCrateStacksFromFile = (): CrateStack[] => {
  * Tuple: [Number to move, move from column, move to column].
  * Ex. [1, 2, 3] will move 1 crate from position 2 to position 3.
  */
-const getParsedInstructionsFromFile = (): InstructionsList => {
+const getInstructionsFromFile = (): InstructionsList => {
     let instructions: InstructionsList = [];
 
     for (let i = 0; i < file.length; i++) {
         const instructionStringArray = file[i].split(' ');
+
         if (!instructionStringArray) return;
 
         const instruction1 = instructionStringArray[1];
@@ -61,20 +63,24 @@ const getParsedInstructionsFromFile = (): InstructionsList => {
     return instructions;
 };
 
-export const getListOfTopCrates = (): Capitalize<string> => {
-    const instructions = getParsedInstructionsFromFile();
-    const stacks = getCrateCrateStacksFromFile();
+export const getTopCrates = (): Capitalize<string> => {
+    const instructions = getInstructionsFromFile();
+    const stacks = getCrateStacksFromFile();
 
+    // Run through the list of instructions.
     instructions.forEach((instruction) => {
         let movesLeft = instruction[0];
+        const moveFromIdx = instruction[1] - 1;
+        const moveToIdx = instruction[2] - 1;
 
-        const moveFromColumn = instruction[1];
-        const moveToColumn = instruction[2];
-
-        // while(movesLeft) {
-            // While I have moves left, I move crates to and from.
-        // }
+        while(movesLeft) {
+            stacks[moveToIdx].push(stacks[moveFromIdx].pop());
+            movesLeft--;
+        }
     });
 
-    return 'W';
+    // Get the top crate from each index and return the string
+    return stacks.map((stack) => {
+        return stack[stack.length - 1];
+    }).join('') as Capitalize<string>;
 };
