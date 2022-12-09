@@ -1,4 +1,4 @@
-// Solution for Day 4, part 2: https://adventofcode.com/2022/day/4
+// Solution for Day 4: https://adventofcode.com/2022/day/4
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 type Range = [string, string];
 
-const CAMP_ASSIGNMENTS = './input.txt'
+const CAMP_ASSIGNMENTS = './input.txt';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const assignmentPairsList = readFileSync(join(__dirname, CAMP_ASSIGNMENTS), 'utf-8')
@@ -34,8 +34,11 @@ export const countEnclosingCampAssignments = (): number => {
         const [assignment1, assignment2]: Range = assignmentPairs.split(',') as Range;
         const [assignment1Left, assignment1Right]: Range = assignment1.split('-') as Range;
         const [assignment2Left, assignment2Right]: Range = assignment2.split('-') as Range;
-        const assignment1Contains2 = parseInt(assignment1Left) <= parseInt(assignment2Left) && parseInt(assignment1Right) >= parseInt(assignment2Right);
-        const assignment2Contains1 = parseInt(assignment1Left) >= parseInt(assignment2Left) && parseInt(assignment1Right) <= parseInt(assignment2Right);
+        const assignment1Contains2 = parseInt(assignment1Left) <= parseInt(assignment2Left)
+            && parseInt(assignment1Right) >= parseInt(assignment2Right);
+
+        const assignment2Contains1 = parseInt(assignment1Left) >= parseInt(assignment2Left)
+            && parseInt(assignment1Right) <= parseInt(assignment2Right);
 
         if (assignment1Contains2 || assignment2Contains1) {
             return acc + 1;
@@ -68,7 +71,10 @@ export const countOverlappingCampAssignments = (): number => {
         const [assignment1, assignment2]: Range = assignmentPairs.split(',') as Range;
         const [assignment1Left, assignment1Right]: Range = assignment1.split('-') as Range;
         const [assignment2Left, assignment2Right]: Range = assignment2.split('-') as Range;
-        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right) && parseInt(assignment1Right) >= parseInt(assignment2Left) || parseInt(assignment2Left) <= parseInt(assignment1Right) && parseInt(assignment2Right) >= parseInt(assignment1Left);
+        const assignmentsOverlap = parseInt(assignment1Left) <= parseInt(assignment2Right)
+            && parseInt(assignment1Right) >= parseInt(assignment2Left)
+            || parseInt(assignment2Left) <= parseInt(assignment1Right)
+            && parseInt(assignment2Right) >= parseInt(assignment1Left);
 
         if (assignmentsOverlap) {
             return acc + 1;

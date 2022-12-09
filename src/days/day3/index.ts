@@ -1,5 +1,4 @@
 // Solution for Day 3: https://adventofcode.com/2022/day/3
-// Clean-up: consider using a class/enclosed scope and make re-usable methods
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
@@ -8,7 +7,7 @@ type PriorityMap = Map<string, number>;
 
 // Both solutions: O(n * m^2).
 export const ruckSackinator = (): number => {
-    const RUCKSACKS = './input1.txt'
+    const RUCKSACKS = './input1.txt';
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const rucksackList = readFileSync(join(__dirname, RUCKSACKS), 'utf-8')

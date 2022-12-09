@@ -1,14 +1,80 @@
-// Solution for Day 4, part 2: https://adventofcode.com/2022/day/4
+// Solution for Day 5: https://adventofcode.com/2022/day/5
 
 import { readFileSync } from 'fs';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 
-const CRATE_STACKS = './input.txt'
+type CrateStack = string[];
+type InstructionsList = [number, number, number][];
+
+const CRATE_STACKS = './input.txt';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const file = readFileSync(join(__dirname, CRATE_STACKS), 'utf-8');
+const file = readFileSync(join(__dirname, CRATE_STACKS), 'utf-8')
+    .split(/\r?\n/);
 
-export const getListOfTopCrates = () => {
-    return file.indexOf('');
+const isNumeric = (value: string): boolean => {
+    return /^\d+$/.test(value);
 }
+    
+// Create the stacks data structure to iterate through. O(n * m^2).
+const getCrateCrateStacksFromFile = (): CrateStack[] => {
+    const stacks: CrateStack[] = [];
+
+    for (let i = 0; 1; i++) {
+        let j = 1;
+
+        if(isNumeric(file[i][j])) break;
+
+        stacks[i] = [];
+
+        while(j < file[i].length) {
+            stacks[i] = [...stacks[i], file[i][j]];
+            j += 4;
+        }
+    }
+
+    return stacks.reverse();
+};
+
+/**
+ * Create a list of instruction tuples. O(n).
+ * Tuple: [Number to move, move from column, move to column].
+ * Ex. [1, 2, 3] will move 1 crate from position 2 to position 3.
+ */
+const getParsedInstructionsFromFile = (): InstructionsList => {
+    let instructions: InstructionsList = [];
+
+    for (let i = 0; i < file.length; i++) {
+        const instructionStringArray = file[i].split(' ');
+        if (!instructionStringArray) return;
+
+        const instruction1 = instructionStringArray[1];
+        const instruction2 = instructionStringArray[3];
+        const instruction3 = instructionStringArray[5];
+
+        if (isNumeric(instruction1) && isNumeric(instruction2) && isNumeric(instruction3)) {
+            instructions.push([Number(instruction1), Number(instruction2), Number(instruction3)]);
+        }
+    }
+
+    return instructions;
+};
+
+export const getListOfTopCrates = (): Capitalize<string> => {
+    const instructions = getParsedInstructionsFromFile();
+    const stacks = getCrateCrateStacksFromFile();
+
+    instructions.forEach((instruction) => {
+        let movesLeft = instruction[0];
+
+        const moveFromColumn = instruction[1];
+        const moveToColumn = instruction[2];
+
+        // while(movesLeft) {
+            // While I have moves left, I move crates to and from.
+        // }
+    });
+
+    return 'W';
+};
