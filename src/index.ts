@@ -3,6 +3,7 @@ import { badElvenJankenPredictor, goodElvenJankenPredictor } from './days/day2/i
 import { badginator, ruckSackinator } from './days/day3/index.js';
 import { countEnclosingCampAssignments, countOverlappingCampAssignments } from './days/day4/index.js'
 import { getTopCrates, haveCrateMover9001GetTopCrates } from './days/day5/index.js'
+import { characterProcessor } from './days/day6/index.js'
 
 // console.log(organizedElvenCalories()); // day 1.
 // console.log(badElvenJankenPredictor()); // day 2 part 1.
@@ -13,3 +14,4 @@ import { getTopCrates, haveCrateMover9001GetTopCrates } from './days/day5/index.
 // console.log(countOverlappingCampAssignments()) // day 4 part 2
 // console.log(getTopCrates()); // day 5 part 1
 // console.log(haveCrateMover9001GetTopCrates()) // day 5 part 2
+console.log(`${characterProcessor()} characters need to be processed before we can find the marker.`);

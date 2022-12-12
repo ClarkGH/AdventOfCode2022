@@ -15,7 +15,7 @@ const file = readFileSync(join(__dirname, CRATE_STACKS), 'utf-8')
 
 const isNumeric = (value: string): boolean => {
     return /^\d+$/.test(value);
-}
+};
     
 // Create the stacks data structure to iterate through. O(n * m^2).
 const getCrateStacksFromFile = (): CrateStack[] => {
